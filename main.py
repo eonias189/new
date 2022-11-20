@@ -1,15 +1,15 @@
 import sys
 import random
 
-from PyQt5 import uic
+from Ui import Ui_MainWindow
 from PyQt5.QtGui import QPainter, QColor
 from PyQt5.QtWidgets import QApplication, QMainWindow
 
 
-class MyWidget(QMainWindow):
+class MyWidget(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi('Ui.ui', self)
+        self.setupUi(self)
         self.do_paint = False
         self.pb.clicked.connect(self.paint)
 
@@ -25,7 +25,8 @@ class MyWidget(QMainWindow):
             qp.end()
 
     def draw(self, qp):
-        qp.setBrush(QColor(255, 255, 0))
+        color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+        qp.setBrush(QColor(*color))
         size = random.randint(1, 150)
         x = random.randint(size, 470 - size)
         y = random.randint(size, 470 - size)
